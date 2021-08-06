@@ -5,6 +5,7 @@ import { GatsbyImageFluidProps } from 'gatsby-image'
 import Layout from '@src/layout'
 import { Row, Col } from '@grid/index'
 import { Image, Button } from '@components/index'
+import { Product } from '@types'
 
 interface Props {
   location: {
@@ -20,6 +21,7 @@ interface Props {
         description: string
       }
     }
+    allProduct: Product[]
   }
 }
 
@@ -48,6 +50,14 @@ export const indexPageQuery = graphql`
       siteMetadata {
         title
         description
+      }
+    }
+    allProduct {
+      nodes {
+        _id
+        name
+        price
+        category
       }
     }
   }
