@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: '.env',
+})
+
 module.exports = {
   siteMetadata: {
     site: `Canvas Collective`,
@@ -33,6 +37,14 @@ module.exports = {
         display: `standalone`,
         icon: `src/images/icon.png`, // This path is relative to the root of the site.
         include_favicon: true, // Include favicon
+      },
+    },
+    {
+      resolve: `gatsby-source-faunadb`,
+      options: {
+        secret: process.env.FAUNADB_SECRET_KEY,
+        index: `allProducts`,
+        type: 'product',
       },
     },
     `gatsby-plugin-sitemap`,
