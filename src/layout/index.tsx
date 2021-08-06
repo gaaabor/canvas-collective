@@ -4,8 +4,8 @@ import styled, { ThemeProvider } from 'styled-components'
 import theme from '@styles/theme'
 import GlobalStyles from '@styles/globalStyles'
 
-import Head from '@components/Head'
-import Container from '@grid/Container'
+import { Head, Header } from '@components/index'
+import { Container } from '@grid/index'
 
 interface Props {
   children: React.ReactNode
@@ -20,7 +20,10 @@ const Layout = ({ children, location }: Props) => {
       <GlobalStyles />
       <Head pathname={location.pathname} />
       <ThemeProvider theme={theme}>
-        <Container>{children}</Container>
+        <Container>
+          <Header />
+          {children}
+        </Container>
       </ThemeProvider>
     </App>
   )
