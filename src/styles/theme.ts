@@ -15,6 +15,17 @@ export interface ITheme {
     md: number
     lg: number
   }
+  media: {
+    sm: string
+    md: string
+    lg: string
+    xl: string
+    custom: string
+    hover: string
+  }
+  border: {
+    thick: string
+  }
 }
 
 const customMediaQuery = (minWidth: number) =>
@@ -45,6 +56,9 @@ const mainTheme = {
     xl: customMediaQuery(1280),
     custom: customMediaQuery,
     hover: `@media (hover: hover)`,
+  },
+  border: {
+    thick: '4px solid #E4E4E4',
   },
 }
 
