@@ -1,14 +1,24 @@
-export interface Image {
+import { FluidObject } from 'gatsby-image'
+
+export interface ImageType {
   src: string
   alt: string
 }
 
-export interface Product {
+export interface OptimizedImageType {
+  childImageSharp: {
+    fluid: FluidObject
+  }
+}
+
+export interface ProductType {
   name: string
   category: string
   price: number
   currency: string
-  image: Image
+  image: ImageType
+  optimizedImage: OptimizedImageType
+  optimizedRecommendations?: OptimizedImageType[]
   bestseller?: boolean
   featured?: boolean
   details?: {
@@ -18,7 +28,7 @@ export interface Product {
     }
     size: number
     description: string
-    recommendations: Image[]
+    recommendations: ImageType[]
   }
   _id: string
   _ts: number

@@ -19,7 +19,8 @@
       "@components/*": ["src/components/*"],
       "@grid/*": ["src/components/grid/*"],
       "@styles/*": ["src/styles/*"],
-      "@types": ["src/types.ts"]
+      "@types": ["src/types.ts"],
+      "@assets/*": ["static/assets/*"]
     }
   },
   "include": ["src"]

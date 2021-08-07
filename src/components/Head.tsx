@@ -60,8 +60,6 @@ const Head = ({ title, description, thumbnail, pathname, article }: Props) => (
   />
 )
 
-export default Head
-
 const QueryHead = graphql`
   query QueryHead {
     site {
@@ -77,3 +75,5 @@ const QueryHead = graphql`
     }
   }
 `
+
+export default Head

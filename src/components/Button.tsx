@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { rem } from 'polished'
-
 import styled, { css } from 'styled-components'
+import { rem } from 'polished'
 
 interface Props {
   children: React.ReactNode

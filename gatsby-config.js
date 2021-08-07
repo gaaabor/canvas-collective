@@ -17,7 +17,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `img`,
-        path: `${__dirname}/src/images/`,
+        path: `${__dirname}/static/assets/images/`,
       },
     },
     {
@@ -35,8 +35,8 @@ module.exports = {
         background_color: `#E5E5E5`,
         theme_color: `#F7D708`,
         display: `standalone`,
-        icon: `src/images/icon.png`, // This path is relative to the root of the site.
-        include_favicon: true, // Include favicon
+        icon: `static/assets/images/icon.png`,
+        include_favicon: true,
       },
     },
     {
@@ -45,6 +45,30 @@ module.exports = {
         secret: process.env.FAUNADB_SECRET_KEY,
         index: `allProducts`,
         type: 'product',
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /svg/,
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'product',
+        imagePath: 'image.src',
+        name: 'optimizedImage',
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'product',
+        imagePath: 'details.recommendations[].src',
+        name: 'optimizedRecommendations',
       },
     },
     `gatsby-plugin-sitemap`,
