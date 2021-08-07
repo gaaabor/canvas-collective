@@ -55,6 +55,22 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'product',
+        imagePath: 'image.src',
+        name: 'optimizedImage',
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'product',
+        imagePath: 'details.recommendations[].src',
+        name: 'optimizedRecommendations',
+      },
+    },
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-styled-components`,
