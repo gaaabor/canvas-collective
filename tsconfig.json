@@ -19,6 +19,7 @@
       "@components/*": ["src/components/*"],
       "@grid/*": ["src/components/grid/*"],
       "@styles/*": ["src/styles/*"],
+      "@utilities/*": ["src/utilities/*"],
       "@types": ["src/types.ts"],
       "@assets/*": ["static/assets/*"]
     }

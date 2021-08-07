@@ -16,7 +16,8 @@ export default createGlobalStyle`
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  p {
     margin: 0;
   }
   

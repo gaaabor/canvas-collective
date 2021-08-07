@@ -1,55 +1,35 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import styled, { css } from 'styled-components'
 import { rem } from 'polished'
 
 interface Props {
   children: React.ReactNode
+  onClick: () => void
   disabled?: boolean
-  href: string
   id?: string
-  target?: string
-  external?: boolean
   inverted?: boolean
 }
 
 const Button = ({
   children,
+  onClick,
   disabled = false,
-  href = '',
   id = '',
-  target = '_self',
-  external = false,
   inverted = false,
 }: Props) => {
-  const ExternalButton = (): JSX.Element => (
-    <StyledExternal
-      disabled={disabled}
-      href={href}
-      id={id}
-      inverted={inverted}
-      target={target}
-    >
-      {children}
-    </StyledExternal>
-  )
-
-  const InternalButton = (): JSX.Element => (
-    <StyledInternal
+  return (
+    <StyledButton
       disabled={disabled}
       id={id}
       inverted={inverted}
-      target={target}
-      to={href}
+      onClick={onClick}
     >
       {children}
-    </StyledInternal>
+    </StyledButton>
   )
-
-  return external ? <ExternalButton /> : <InternalButton />
 }
 
-const buttonStyles = css<{ disabled: boolean; inverted: boolean }>`
+const StyledButton = styled.button<{ disabled: boolean; inverted: boolean }>`
   align-items: center;
   background-color: ${({ theme }) => theme.palette.black};
   border: none;
@@ -81,14 +61,6 @@ const buttonStyles = css<{ disabled: boolean; inverted: boolean }>`
       background-color: ${({ theme }) => theme.palette.white};
       color: ${({ theme }) => theme.palette.black};
     `}
-`
-
-const StyledExternal = styled.a`
-  ${buttonStyles}
-`
-
-const StyledInternal = styled(Link)`
-  ${buttonStyles}
 `
 
 export default Button

@@ -19,10 +19,10 @@ const StyledContainer = styled.div`
 
   /* Spacing between sections */
   & > * {
-    margin-bottom: ${({ theme }) => rem(theme.spacing.section.sm)};
+    margin-bottom: ${({ theme }) => rem(theme.spacing.section.sm)} !important;
 
     ${({ theme }) => theme.media.lg} {
-      margin-bottom: ${({ theme }) => rem(theme.spacing.section.lg)};
+      margin-bottom: ${({ theme }) => rem(theme.spacing.section.lg)} !important;
     }
   }
 

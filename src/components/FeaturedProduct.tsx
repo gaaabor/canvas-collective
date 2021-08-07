@@ -10,6 +10,8 @@ import Row from '@grid/Row'
 import Col from '@grid/Col'
 import Button from '@components/Button'
 
+import convertToMb from '@utilities/convertToMb'
+
 interface Props {
   products: {
     nodes: ProductType[]
@@ -30,13 +32,15 @@ const FeaturedProduct = () => (
     }: Props) => {
       const imgSrc = product.optimizedImage.childImageSharp.fluid
 
-      const convertToMb = (sizeInKb: number): string =>
-        `${(sizeInKb / 1024).toFixed(2)} mb`
-
       const ProductImage = ({ order }: PatialProps) => (
         <StyledImageWrapper md={12} order={order}>
           <StyledImage>
-            <Img fluid={imgSrc} alt={product.image.alt} />
+            <Img
+              fluid={imgSrc}
+              fadeIn={false}
+              loading="eager"
+              alt={product.image.alt}
+            />
             <StyledFeaturedLabel>Photo of the day</StyledFeaturedLabel>
           </StyledImage>
         </StyledImageWrapper>
@@ -78,7 +82,7 @@ const FeaturedProduct = () => (
             <h1>{product.name}</h1>
           </StyledNameWrapper>
           <StyledCtaWrapper md={6} order={3}>
-            <Button href="#">Add to cart</Button>
+            <Button onClick={() => console.log('Added')}>Add to cart</Button>
           </StyledCtaWrapper>
           <ProductImage order={2} />
           <ProductDescription order={4} />
@@ -173,8 +177,8 @@ const StyledImage = styled.div`
 const StyledFeaturedLabel = styled.span`
   background-color: ${({ theme }) => theme.palette.white};
   bottom: 0;
-  font-size: ${({ theme }) => rem(theme.fontSizes.sm)};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-size: ${({ theme }) => rem(theme.fontSize.sm)};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   left: 0;
   padding: ${rem(15)} ${rem(30)};
   position: absolute;
@@ -192,12 +196,13 @@ const StyledDescription = styled(Col)`
   }
 
   h2 {
-    margin-bottom: ${rem(8)};
+    margin-bottom: ${rem(15)};
   }
 
   h3,
   p {
     color: ${({ theme }) => theme.palette.grey};
+    margin-bottom: ${rem(15)};
   }
 
   h3 {

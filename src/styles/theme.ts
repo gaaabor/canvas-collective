@@ -26,13 +26,14 @@ export interface ThemeType {
   border: {
     thick: string
   }
-  fontSizes: {
+  fontSize: {
     sm: number
     base: number
     md: number
     lg: number
+    xl: number
   }
-  fontWeights: {
+  fontWeight: {
     bold: number
   }
   spacing: {
@@ -74,13 +75,14 @@ const mainTheme: ThemeType = {
   border: {
     thick: '4px solid #E4E4E4',
   },
-  fontSizes: {
+  fontSize: {
     sm: 14,
     base: 16,
     md: 18,
     lg: 20,
+    xl: 22,
   },
-  fontWeights: {
+  fontWeight: {
     bold: 700,
   },
   spacing: {
