@@ -9,10 +9,29 @@ interface Props {
   lg?: number
   xl?: number
   children?: React.ReactNode
+  className?: string
+  order?: number
 }
 
-const Col = ({ children, lg, md, sm, xl, xs = 12 }: Props) => (
-  <StyledCol lg={lg} md={md} sm={sm} xl={xl} xs={xs}>
+const Col = ({
+  children,
+  className,
+  lg,
+  md,
+  sm,
+  xl,
+  xs = 12,
+  order,
+}: Props) => (
+  <StyledCol
+    lg={lg}
+    md={md}
+    sm={sm}
+    xl={xl}
+    xs={xs}
+    order={order}
+    className={className}
+  >
     {children}
   </StyledCol>
 )
@@ -34,6 +53,7 @@ const StyledCol = styled.div<{
   md?: number
   lg?: number
   xl?: number
+  order?: number
 }>`
   min-height: 1px;
   padding: 0 ${({ theme }) => theme.gridGutter.md / 2}px;
@@ -76,6 +96,10 @@ const StyledCol = styled.div<{
       css`
         ${getResponsiveCol(xl)}
       `}
+  }
+
+  @media (max-width: 992px) {
+    order: ${({ order }) => order};
   }
 `
 

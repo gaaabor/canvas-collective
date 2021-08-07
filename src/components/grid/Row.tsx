@@ -7,6 +7,7 @@ interface Props {
   noGutter?: boolean
   verticalGutter?: boolean
   children: React.ReactNode
+  className?: string
 }
 
 const Row = ({
@@ -14,11 +15,13 @@ const Row = ({
   equalHeight = false,
   noGutter = false,
   verticalGutter = false,
+  className,
 }: Props) => (
   <StyledRow
     equalHeight={equalHeight}
     noGutter={noGutter}
     verticalGutter={verticalGutter}
+    className={className}
   >
     {children}
   </StyledRow>
