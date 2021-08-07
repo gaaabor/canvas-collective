@@ -30,6 +30,6 @@ export interface ProductType {
     description: string
     recommendations: ImageType[]
   }
-  _id: string
-  _ts: number
+  _id?: string
+  _ts?: number
 }
