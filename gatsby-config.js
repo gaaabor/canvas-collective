@@ -61,6 +61,8 @@ module.exports = {
         nodeType: 'product',
         imagePath: 'image.src',
         name: 'optimizedImage',
+        prepareUrl: url =>
+          `${url}?random=${Math.floor(Math.random() * 50) + 1}`,
       },
     },
     {
@@ -69,6 +71,8 @@ module.exports = {
         nodeType: 'product',
         imagePath: 'details.recommendations[].src',
         name: 'optimizedRecommendations',
+        prepareUrl: url =>
+          `${url}?random=${Math.floor(Math.random() * 20) + 1}`,
       },
     },
     `gatsby-plugin-sitemap`,
