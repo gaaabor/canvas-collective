@@ -1,5 +1,4 @@
 import { FluidObject } from 'gatsby-image'
-
 export interface ImageType {
   src: string
   alt: string
@@ -18,9 +17,9 @@ export interface ProductType {
   currency: string
   image: ImageType
   optimizedImage: OptimizedImageType
+  featured: boolean
   optimizedRecommendations?: OptimizedImageType[]
   bestseller?: boolean
-  featured?: boolean
   details?: {
     dimmentions: {
       width: string
@@ -30,6 +29,14 @@ export interface ProductType {
     description: string
     recommendations: ImageType[]
   }
-  _id?: string
-  _ts?: number
+  // Fauna DB
+  _id: string
+  _ts: number
 }
+
+export interface ProductsType {
+  nodes: ProductType[]
+}
+
+// eslint-disable-next-line no-unused-vars
+export type CartActionAddType = (clickedItem: ProductType) => void

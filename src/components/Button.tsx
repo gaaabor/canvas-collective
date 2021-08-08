@@ -4,10 +4,11 @@ import { rem } from 'polished'
 
 interface Props {
   children: React.ReactNode
-  onClick: () => void
   disabled?: boolean
   id?: string
   inverted?: boolean
+  // eslint-disable-next-line no-unused-vars
+  onClick: (event: React.MouseEvent<HTMLElement>) => void
 }
 
 const Button = ({
@@ -60,6 +61,7 @@ const StyledButton = styled.button<{ disabled: boolean; inverted: boolean }>`
     css`
       background-color: ${({ theme }) => theme.palette.white};
       color: ${({ theme }) => theme.palette.black};
+      border: 3px solid ${({ theme }) => theme.palette.black};
     `}
 `
 

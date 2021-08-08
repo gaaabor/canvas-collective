@@ -18,6 +18,7 @@
       "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@grid/*": ["src/components/grid/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@styles/*": ["src/styles/*"],
       "@utilities/*": ["src/utilities/*"],
       "@types": ["src/types.ts"],

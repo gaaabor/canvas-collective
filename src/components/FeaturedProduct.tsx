@@ -1,136 +1,97 @@
 import React from 'react'
-import { StaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import styled from 'styled-components'
 import { rem } from 'polished'
 
-import { ProductType } from '@types'
+import { CartActionAddType, ProductType } from '@types'
 
 import Row from '@grid/Row'
 import Col from '@grid/Col'
 import Button from '@components/Button'
 
+import useFeaturedProduct from '../hooks/useFeaturedProduct'
+
 import convertToMb from '@utilities/convertToMb'
 
 interface Props {
-  products: {
-    nodes: ProductType[]
-  }
+  handleAddToCart: CartActionAddType
 }
 
-interface PatialProps {
+interface PartialProps {
   order: number
 }
 
-const FeaturedProduct = () => (
-  <StaticQuery
-    query={FeaturedProductQuery}
-    render={({
-      products: {
-        nodes: { 0: product },
-      },
-    }: Props) => {
-      const imgSrc = product.optimizedImage.childImageSharp.fluid
+const FeaturedProduct = ({ handleAddToCart }: Props) => {
+  const {
+    nodes: { 0: featuredProduct },
+  } = useFeaturedProduct()
 
-      const ProductImage = ({ order }: PatialProps) => (
-        <StyledImageWrapper md={12} order={order}>
-          <StyledImage>
+  const {
+    name,
+    category,
+    details,
+    image,
+    optimizedImage,
+    optimizedRecommendations,
+  }: ProductType = featuredProduct
+
+  const ProductImage = ({ order }: PartialProps) => (
+    <StyledImageWrapper md={12} order={order}>
+      <StyledImage>
+        <Img
+          fluid={optimizedImage.childImageSharp.fluid}
+          fadeIn={false}
+          loading="eager"
+          alt={image.alt}
+        />
+        <StyledFeaturedLabel>Photo of the day</StyledFeaturedLabel>
+      </StyledImage>
+    </StyledImageWrapper>
+  )
+
+  const ProductDescription = ({ order }: PartialProps) => (
+    <StyledDescription md={7} order={order}>
+      <h2>{`About the ${name}`}</h2>
+      <h3>{category}</h3>
+      <p>{details?.description}</p>
+    </StyledDescription>
+  )
+
+  const ProductRecommendations = ({ order }: PartialProps) => (
+    <StyledRecommendations md={5} order={order}>
+      <h3>People also buy</h3>
+      <StyledThumbnailsWrapper>
+        {optimizedRecommendations &&
+          optimizedRecommendations.map((image, index) => (
             <Img
-              fluid={imgSrc}
-              fadeIn={false}
-              loading="eager"
-              alt={product.image.alt}
+              fluid={image.childImageSharp.fluid}
+              alt={details?.recommendations[index].alt}
+              key={details?.recommendations[index].alt}
             />
-            <StyledFeaturedLabel>Photo of the day</StyledFeaturedLabel>
-          </StyledImage>
-        </StyledImageWrapper>
-      )
+          ))}
+      </StyledThumbnailsWrapper>
+      <h3>Details</h3>
+      <span>{`Size: ${details?.dimmentions.width} x ${details?.dimmentions.height}`}</span>
+      <span>{details?.size && `Size: ${convertToMb(details?.size)}`}</span>
+    </StyledRecommendations>
+  )
 
-      const ProductDescription = ({ order }: PatialProps) => (
-        <StyledDescription md={7} order={order}>
-          <h2>{`About the ${product.name}`}</h2>
-          <h3>{product.category}</h3>
-          <p>{product.details?.description}</p>
-        </StyledDescription>
-      )
-
-      const ProductRecommendations = ({ order }: PatialProps) => (
-        <StyledRecommendations md={5} order={order}>
-          <h3>People also buy</h3>
-          <StyledThumbnailsWrapper>
-            {product?.optimizedRecommendations &&
-              product?.optimizedRecommendations.map((image, index) => (
-                <Img
-                  fluid={image.childImageSharp.fluid}
-                  alt={product.details?.recommendations[index].alt}
-                  key={product.details?.recommendations[index].alt}
-                />
-              ))}
-          </StyledThumbnailsWrapper>
-          <h3>Details</h3>
-          <span>{`Size: ${product.details?.dimmentions.width} x ${product.details?.dimmentions.height}`}</span>
-          <span>
-            {product.details?.size &&
-              `Size: ${convertToMb(product.details.size)}`}
-          </span>
-        </StyledRecommendations>
-      )
-
-      return (
-        <StyledFeaturedProduct>
-          <StyledNameWrapper md={6} order={1}>
-            <h1>{product.name}</h1>
-          </StyledNameWrapper>
-          <StyledCtaWrapper md={6} order={3}>
-            <Button onClick={() => console.log('Added')}>Add to cart</Button>
-          </StyledCtaWrapper>
-          <ProductImage order={2} />
-          <ProductDescription order={4} />
-          <ProductRecommendations order={5} />
-        </StyledFeaturedProduct>
-      )
-    }}
-  />
-)
-
-const FeaturedProductQuery = graphql`
-  query FeaturedProductQuery {
-    products: allProduct(filter: { featured: { eq: true } }) {
-      nodes {
-        name
-        category
-        image {
-          alt
-        }
-        details {
-          description
-          recommendations {
-            alt
-          }
-          dimmentions {
-            width
-            height
-          }
-          size
-        }
-        optimizedImage {
-          childImageSharp {
-            fluid(maxWidth: 1300, maxHeight: 600) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-        optimizedRecommendations {
-          childImageSharp {
-            fluid(maxWidth: 120, maxHeight: 150) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-      }
-    }
-  }
-`
+  return (
+    <StyledFeaturedProduct>
+      <StyledNameWrapper md={6} order={1}>
+        <h1>{name}</h1>
+      </StyledNameWrapper>
+      <StyledCtaWrapper md={6} order={3}>
+        <Button onClick={() => handleAddToCart(featuredProduct)}>
+          Add to cart
+        </Button>
+      </StyledCtaWrapper>
+      <ProductImage order={2} />
+      <ProductDescription order={4} />
+      <ProductRecommendations order={5} />
+    </StyledFeaturedProduct>
+  )
+}
 
 const StyledFeaturedProduct = styled(Row)`
   border-bottom: ${({ theme }) => theme.border.thick};

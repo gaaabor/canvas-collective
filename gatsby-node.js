@@ -7,6 +7,7 @@ exports.onCreateWebpackConfig = function ({ actions }) {
         '@src': path.resolve(__dirname, 'src'),
         '@components': path.resolve(__dirname, 'src/components'),
         '@grid': path.resolve(__dirname, 'src/components/grid'),
+        '@hooks': path.resolve(__dirname, 'src/hooks'),
         '@styles': path.resolve(__dirname, 'src/styles'),
         '@utilities': path.resolve(__dirname, 'src/utilities'),
         '@types': path.resolve(__dirname, 'src/types.ts'),
