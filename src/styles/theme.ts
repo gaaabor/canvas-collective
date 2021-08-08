@@ -24,6 +24,7 @@ export interface ThemeType {
     hover: string
   }
   border: {
+    thin: string
     thick: string
   }
   fontSize: {
@@ -73,6 +74,7 @@ const mainTheme: ThemeType = {
     hover: `@media (hover: hover)`,
   },
   border: {
+    thin: '1px solid #E4E4E4',
     thick: '4px solid #E4E4E4',
   },
   fontSize: {
