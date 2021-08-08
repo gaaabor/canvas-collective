@@ -5,6 +5,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "typeRoots": ["./src/types/", "./extend-types/"],
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -13,15 +14,16 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "preserve",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@src/*": ["src/*"],
-      "@components/*": ["src/components/*"],
+      "@components/*": ["src/component/*"],
+      "@constants/*": ["src/constants/*"],
       "@grid/*": ["src/components/grid/*"],
       "@hooks/*": ["src/hooks/*"],
       "@styles/*": ["src/styles/*"],
       "@utilities/*": ["src/utilities/*"],
-      "@types": ["src/types.ts"],
+      "@types/*": ["src/types/*"],
       "@assets/*": ["static/assets/*"]
     }
   },
