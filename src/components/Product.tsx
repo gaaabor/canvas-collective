@@ -72,7 +72,7 @@ const StyledImageWrapper = styled.div`
 
 const StyledCategory = styled.p`
   color: ${({ theme }) => theme.palette.grey};
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => rem(theme.fontSize.xl)};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   text-transform: capitalize;
 `

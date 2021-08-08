@@ -41,9 +41,9 @@ const ProductList = ({ handleAddToCart }: Props) => {
           Photography / <span>Premium Photos</span>
         </StyledSectionHeading>
       </Col>
-      <Col md={3}>
+      <StyledFilter md={3}>
         <h1>Filtering</h1>
-      </Col>
+      </StyledFilter>
       <Col md={9}>
         <Row equalHeight>
           {productsToRender.map((product: ProductType) => (
@@ -77,7 +77,13 @@ const ProductList = ({ handleAddToCart }: Props) => {
 const StyledProductList = styled(Row)``
 
 const StyledSectionHeading = styled.h1`
-  margin-bottom: ${rem(60)};
+  margin-bottom: ${rem(30)};
+  font-size: ${({ theme }) => rem(theme.fontSize.md)};
+
+  ${({ theme }) => theme.media.lg} {
+    font-size: ${rem(32)};
+    margin-bottom: ${rem(60)};
+  }
 
   span {
     color: ${({ theme }) => theme.palette.grey};
@@ -116,6 +122,13 @@ const StyledCaretLeft = styled(CaretLeft)`
 
 const StyledCaretRight = styled(CaretRight)`
   ${iconStyles}
+`
+
+// TODO add filtering
+const StyledFilter = styled(Col)`
+  @media (max-width: 992px) {
+    display: none;
+  }
 `
 
 export default ProductList
