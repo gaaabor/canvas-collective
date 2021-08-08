@@ -35,6 +35,7 @@ export interface ThemeType {
     xl: number
   }
   fontWeight: {
+    normal: number
     bold: number
   }
   spacing: {
@@ -85,6 +86,7 @@ const mainTheme: ThemeType = {
     xl: 22,
   },
   fontWeight: {
+    normal: 400,
     bold: 700,
   },
   spacing: {
