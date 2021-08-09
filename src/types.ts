@@ -1,4 +1,5 @@
 import { FluidObject } from 'gatsby-image'
+
 export interface ImageType {
   src: string
   alt: string
@@ -40,3 +41,5 @@ export interface ProductsType {
 
 // eslint-disable-next-line no-unused-vars
 export type CartActionAddType = (clickedItem: ProductType) => void
+
+export type SVGType = React.FunctionComponent<React.SVGAttributes<SVGElement>>

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { rem, size } from 'polished'
 
-import { ProductType, CartActionAddType } from '@types'
+import { ProductType, CartActionAddType, SVGType } from '@types'
 
 import Row from '@grid/Row'
 import Col from '@grid/Col'
@@ -13,18 +13,21 @@ import usePagination from '../hooks/usePagination'
 
 import { PRODUCTS_PER_PAGE } from '../constants/'
 
-// @ts-ignore
-import CaretLeft from '@assets/svg/caret-left.svg'
-// @ts-ignore
-import CaretRight from '@assets/svg/caret-right.svg'
+const CaretLeft = require('@assets/svg/caret-left.svg') as SVGType
+const CaretRight = require('@assets/svg/caret-right.svg') as SVGType
+const ReverseIcon = require('@assets/svg/reverse.svg') as SVGType
 
 interface Props {
   handleAddToCart: CartActionAddType
 }
 
 const ProductList = ({ handleAddToCart }: Props) => {
-  const { nodes: products } = useProducts()
+  const { nodes: data } = useProducts()
+
+  const [products, setProducts] = useState(data)
   const [currentPage, setCurrentPage] = useState(1)
+  const [sortType, setSortType] = useState('')
+  const [productsToRender, setProductsToRender] = useState(products)
 
   const { pages, showLeftArrow, showRightArrow, renderFrom } = usePagination({
     count: products.length,
@@ -32,13 +35,51 @@ const ProductList = ({ handleAddToCart }: Props) => {
     productsPerPage: PRODUCTS_PER_PAGE,
   })
 
-  const productsToRender = products.slice(renderFrom, renderFrom + 6)
+  useEffect(() => {
+    const sortArray = (type: string) => {
+      if (type === 'name') {
+        const sortedByName = [...products].sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )
+        setProducts(sortedByName)
+      } else {
+        const sortedByPrice = [...products].sort((a, b) => a.price - b.price)
+        setProducts(sortedByPrice)
+      }
+    }
+
+    sortArray(sortType)
+  }, [sortType])
+
+  useEffect(() => {
+    setProductsToRender(products.slice(renderFrom, renderFrom + 6))
+  }, [products, renderFrom])
+
+  const handleProductOrderChange = (): void => {
+    setProducts((prev: ProductType[]) => {
+      const revertedArray = [...prev].reverse()
+      return [...revertedArray]
+    })
+  }
 
   return (
     <StyledProductList>
       <Col md={12}>
         <StyledSectionHeading>
-          Photography / <span>Premium Photos</span>
+          <h1>
+            Photography / <span>Premium Photos</span>
+          </h1>
+          <StyledSorting>
+            <ReverseIcon onClick={() => handleProductOrderChange()} />
+            <p>Sort By</p>
+            <select
+              defaultValue="price"
+              onChange={e => setSortType(e.target.value)}
+            >
+              <option value="price">Price</option>
+              <option value="name">Name</option>
+            </select>
+          </StyledSorting>
         </StyledSectionHeading>
       </Col>
       <StyledFilter md={3}>
@@ -76,18 +117,57 @@ const ProductList = ({ handleAddToCart }: Props) => {
 
 const StyledProductList = styled(Row)``
 
-const StyledSectionHeading = styled.h1`
+const StyledSectionHeading = styled.div`
+  display: flex;
   margin-bottom: ${rem(30)};
-  font-size: ${({ theme }) => rem(theme.fontSize.md)};
+  flex-direction: column;
 
   ${({ theme }) => theme.media.lg} {
-    font-size: ${rem(32)};
     margin-bottom: ${rem(60)};
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
   }
 
-  span {
-    color: ${({ theme }) => theme.palette.grey};
-    font-weight: ${({ theme }) => theme.fontWeight.normal};
+  h1 {
+    font-size: ${({ theme }) => rem(theme.fontSize.md)};
+    margin-bottom: ${rem(20)};
+
+    ${({ theme }) => theme.media.lg} {
+      font-size: ${rem(32)};
+      margin-bottom: 0;
+    }
+
+    span {
+      color: ${({ theme }) => theme.palette.lightGrey};
+      font-weight: ${({ theme }) => theme.fontWeight.normal};
+    }
+  }
+`
+
+const StyledSorting = styled.div`
+  display: flex;
+  align-items: center;
+
+  svg {
+    ${size(18)};
+    cursor: pointer;
+    margin-right: ${rem(8)};
+  }
+
+  p,
+  select {
+    font-size: ${({ theme }) => rem(theme.fontSize.xl)};
+  }
+
+  p {
+    color: ${({ theme }) => theme.palette.lightGrey};
+    margin-right: ${rem(8)};
+  }
+
+  select {
+    border: none;
+    font-size: ${({ theme }) => rem(theme.fontSize.xl)};
   }
 `
 

@@ -3,6 +3,7 @@ export interface ThemeType {
     white: string
     black: string
     grey: string
+    lightGrey: string
     mercury: string
   }
   containerMaxWidth: {
@@ -54,6 +55,7 @@ const mainTheme: ThemeType = {
     white: '#FFFFFF',
     black: '#000',
     grey: '#656565',
+    lightGrey: '#9B9B9B',
     mercury: '#E5E5E5',
   },
   containerMaxWidth: {
