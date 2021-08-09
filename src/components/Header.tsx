@@ -4,14 +4,14 @@ import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 import { rem, size } from 'polished'
 
-import { ProductType } from '@types'
+import { ProductType, SVGType } from '@types'
 
 import Button from '@components/Button'
 
 import formatCurrency from '@utilities/formatCurrency'
 
-import CompanyLogo from '@assets/svg/logo.svg'
-import CartIcon from '@assets/svg/cart.svg'
+const CompanyLogo = require('@assets/svg/logo.svg') as SVGType
+const CartIcon = require('@assets/svg/cart.svg') as SVGType
 
 interface Props {
   cartItems: ProductType[]
@@ -99,15 +99,20 @@ const StyledCartIcon = styled(CartIcon)`
 `
 
 const StyledCartContent = styled.div`
-  width: ${rem(450)};
+  width: ${rem(320)};
   height: auto;
   border: ${({ theme }) => theme.border.thick};
   position: absolute;
   z-index: 1;
   background-color: ${({ theme }) => theme.palette.white};
   right: 0;
-  transform: translateY(28px);
+  transform: translateY(24px);
   padding: ${rem(30)};
+
+  ${({ theme }) => theme.media.lg} {
+    width: ${rem(450)};
+    transform: translateY(28px);
+  }
 
   & > button {
     width: 100%;

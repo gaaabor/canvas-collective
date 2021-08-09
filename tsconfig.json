@@ -23,9 +23,9 @@
       "@hooks/*": ["src/hooks/*"],
       "@styles/*": ["src/styles/*"],
       "@utilities/*": ["src/utilities/*"],
-      "@types/*": ["src/types/*"],
+      "@types/*": ["src/types.ts"],
       "@assets/*": ["static/assets/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "globals.d.ts"]
 }
